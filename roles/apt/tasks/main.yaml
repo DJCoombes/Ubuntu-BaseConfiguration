@@ -1,0 +1,17 @@
+---
+# file: roles/apt/main.yaml
+
+# Force APT to update all repositories
+- name: Update APT Repo
+  become: true
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+    cache_valid_time: 3600
+
+# Upgrade all available packages via APT
+- name: Upgrade All Packages
+  become: true
+  apt:
+    upgrade: dist
+    force_apt_get: yes

@@ -1,0 +1,11 @@
+---
+# file: roles/ipv6/tasks/main.yaml
+
+- name: Disable IPv6
+  sysctl:
+    name: '{{ item.key }}'
+    value: '{{ item.value }}'
+    state: present
+    sysctl_set: yes
+    reload: yes
+  with_dict: '{{ sysctl_ipv6_config }}'

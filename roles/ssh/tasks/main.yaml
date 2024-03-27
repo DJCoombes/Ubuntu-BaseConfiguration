@@ -1,0 +1,5 @@
+---
+# file: roles/ssh/main.yaml
+
+- include_tasks: hardening.yaml
+- include_tasks: fail2ban.yaml

@@ -1,0 +1,25 @@
+---
+# file: roles/motd/tasks/main.yaml
+
+- name: Remove default MOTD files
+  become: true
+  file:
+    path: /etc/update-motd.d
+    state: absent
+
+- name: Create MOTD directory
+  become: true
+  file:
+    path: /etc/update-motd.d
+    state: directory
+    mode: '0755'
+
+- name: Copy MOTD files to host
+  become: true
+  copy:
+    src: "{{ item }}"
+    dest: /etc/update-motd.d/
+    owner: root
+    mode: '0755'
+  with_fileglob:
+    - "{{ role_path }}/files//*"

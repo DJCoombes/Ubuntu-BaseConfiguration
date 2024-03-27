@@ -1,0 +1,79 @@
+---
+# file: roles/ssh/hardening.yaml
+
+- name: Ensure SSH LogLevel is set to INFO
+  become: true
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?LogLevel'
+    line: 'LogLevel INFO'
+    state: present
+
+- name: Ensure SSH X11 forwarding is disabled
+  become: true
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?X11Forwarding'
+    line: 'X11Forwarding no'
+    state: present
+
+- name: Ensure SSH MaxAuthTries is set to 4 or less
+  become: true
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?MaxAuthTries'
+    line: 'MaxAuthTries 4'
+    state: present
+
+- name: Ensure SSH IgnoreRhosts is enabled
+  become: true
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?IgnoreRhosts'
+    line: 'IgnoreRhosts yes'
+    state: present
+
+- name: Ensure SSH HostbasedAuthentication is disabled
+  become: true
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?HostbasedAuthentication'
+    line: 'HostbasedAuthentication no'
+    state: present
+
+- name: Ensure SSH root login is disabled
+  become: true
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?PermitRootLogin'
+    line: 'PermitRootLogin no'
+    state: present
+
+- name: Ensure SSH PermitEmptyPasswords is disabled
+  become: true
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?PermitEmptyPasswords'
+    line: 'PermitEmptyPasswords no'
+    state: present
+
+- name: Ensure SSH PermitUserEnvironment is disabled
+  become: true
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?PermitUserEnvironment'
+    line: 'PermitUserEnvironment no'
+    state: present
+
+- name: Ensure only approved MACs are allowed
+  become: true
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?MACs'
+    line: 'MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com'
+    state: present
+
+- name: Restart SSH
+  service:
+    name: ssh
+    state: restarted

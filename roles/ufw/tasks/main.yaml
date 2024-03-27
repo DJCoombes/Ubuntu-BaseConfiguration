@@ -1,0 +1,20 @@
+---
+# file: roles/ufw/main.yaml
+
+- name: Install UFW
+  become: true
+  apt:
+    name: ufw
+    state: latest
+
+- name: Enable UFW with logging
+  become: true
+  ufw:
+    state: enabled
+    logging: 'on'
+
+- name: Allow SSH through UFW
+  become: true
+  ufw:
+    rule: allow
+    port: OpenSSH
