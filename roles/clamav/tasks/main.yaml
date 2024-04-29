@@ -11,10 +11,6 @@
     - clamav-freshclam
     - clamav-daemon
 
-- name: Run freshclam after ClamAV packages change.
-  become: true
-  command: freshclam
-
 - name: Ensure ClamAV daemon is running (if configured).
   become: true
   service:
