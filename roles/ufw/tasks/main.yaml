@@ -17,4 +17,4 @@
   become: true
   ufw:
     rule: allow
-    port: OpenSSH
+    name: OpenSSH
