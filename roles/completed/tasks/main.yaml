@@ -1,0 +1,10 @@
+---
+# file: roles/completed/main.yaml
+
+- name: Build Completed
+  file:
+    path: /completed
+    owner: root
+    group: root
+    state: touch
+    mode: 0755
